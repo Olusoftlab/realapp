@@ -1,21 +1,45 @@
-import React, {useState,useEffect} from 'react'
-import {Link} from "react-router-dom"
+import React, {useState,useEffect } from 'react'
+import {Link, useLoaderData } from "react-router-dom"
+import {getVans, myRedirect} from "../api/api"
+
+
+
+export async function loader(){
+
+    const result=false
+
+    if (!result){
+        
+        const res=await myRedirect("/login")
+        return res
+         
+    }
+  
+
+    const res=await getVans()
+    const data=res.filter(item=>  item.id >3) 
+    return data
+}
+
+
 
 const HostVans = () => {
 
-  const [data, setData]=useState([])
+    const data=useLoaderData()
 
-  useEffect(()=>{
+//   const [data, setData]=useState([])
 
-       fetch("/api/vans").then(res=>res.json())
-       .then(data=>{
+//   useEffect(()=>{
+
+//        fetch("/api/vans").then(res=>res.json())
+//        .then(data=>{
           
-          const listVans=data.vans.filter(item=> item.id > 3 )
-          setData(listVans)  
+//           const listVans=data.vans.filter(item=> item.id > 3 )
+//           setData(listVans)  
 
-       })
+//        })
 
-  },[])
+//   },[])
 
 
   return (

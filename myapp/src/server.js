@@ -46,9 +46,21 @@ createServer({
             id: 5, show: ImageFive, name: "goat", class: "mammal", pricing: "$40000"
         })
 
+
         server.create("van", {
 
-            id: 6, show: ImageSix, name: "zebra", class: "mammal", pricing: "$10000"
+            id: 7, show: ImageSix, name: "zebra", email: "olumild998@gmail.com", password: "Trigonometry8#"
+        })
+
+        server.create("van", {
+
+            id: 8, show: ImageSix, name: "Wasiu", email: "wasiu@gmail.com", password: "Trigonometry8#"
+        })
+
+
+        server.create("van", {
+
+            id: 8, show: ImageSix, name: "toluwani", email: "toluwani@gmail.com", password: "toluwani"
         })
 
     }
@@ -78,6 +90,29 @@ createServer({
 
 
         })
+
+
+        this.post("/login", (schema, request) => {
+
+            const { email, password } = JSON.parse(request.requestBody)
+
+            const foundUser = schema.vans.findBy({ email, password })
+
+            if (!foundUser) {
+
+                return new Response(401, {}, { message: "User not found" })
+
+
+            }
+
+
+
+            return { "user": foundUser }
+
+
+
+        })
+
 
 
     }

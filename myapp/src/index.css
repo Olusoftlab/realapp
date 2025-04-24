@@ -92,3 +92,49 @@ p{
     text-align: center;
     margin-bottom: 40px;
 }
+
+form{
+  
+     width:30vw;
+     margin:10px auto;
+     padding:20px;     
+     font-size: 16px;
+}
+
+.input-cont{
+
+      margin-bottom: 17px;
+}
+
+
+.label-1{
+
+    margin-left: 23px;
+}
+
+
+.email, .password{
+
+      width:80%;
+      padding:3px;
+      font-size: 20px;
+      outline:none;
+      background-color:rgb(168, 168, 243);
+    
+}
+
+.btn-inp{
+      
+    width: 80%;
+    padding: 7px;
+    margin-left:70px;  
+    font-size: 16px;  
+    font-weight: bold;
+    background-color:rgb(255, 167, 5);
+    color:white;
+    border: none;
+    border-radius: 5px;
+    cursor:pointer;
+}
+
+

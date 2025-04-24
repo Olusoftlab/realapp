@@ -1,13 +1,22 @@
-import React, {useEffect,useState} from 'react'
-import { Link, useSearchParams, useLoaderData } from 'react-router-dom'
+import React from 'react'
+import { Link, useSearchParams, useLoaderData, redirect } from 'react-router-dom'
 import "./index.css"
-import {getVans} from "./api//api"
+import {getVans, myRedirect} from "./api//api"
 
 
 export const loader=async()=>{
+      
+   const result=false
+  
+   if (!result){
 
+      const res=await myRedirect("/login?message=you must login first ")        
+      return res 
+   
+   } 
+ 
    const data=await getVans()  
-
+     
    return data 
 
 }
