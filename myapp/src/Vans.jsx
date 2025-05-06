@@ -1,23 +1,24 @@
 import React from 'react'
-import { Link, useSearchParams, useLoaderData, redirect } from 'react-router-dom'
+import { Link, useSearchParams, useLoaderData, defer, Await } from 'react-router-dom'
 import "./index.css"
 import {getVans, myRedirect} from "./api//api"
 
 
-export const loader=async()=>{
-      
-   const result=false
+export const loader=async({request})=>{
+   
+   let result=localStorage.getItem("loggedin")
   
+   const pathName=new URL(request.url).pathname
    if (!result){
 
-      const res=await myRedirect("/login?message=you must login first ")        
+      const res=await myRedirect(`/login?message=you must log in first&&redirectto=${pathName}`) 
       return res 
    
    } 
  
-   const data=await getVans()  
+   const data= getVans()  
      
-   return data 
+   return data
 
 }
 
@@ -29,13 +30,15 @@ const Vans = () => {
 
    //   const [data, setData]=useState([])
 
-   //   const [loading, setLoading]=useState(false)
      
    //   const [error,setError]=useState(null)
 
+
      const loaderData=useLoaderData()
     
-     
+    
+         
+
 
      const [searchPaarams, setSearchParams]=useSearchParams()
 

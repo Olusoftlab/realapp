@@ -4,14 +4,16 @@ import {myRedirect} from "./api/api"
 
 
 
-export async function loader(){
+export async function loader({request}){
 /// implement authRequired
   
-  const result=false
-    
+  const result=localStorage.getItem("loggedin")
+
+  const pathName=new URL(request.url).pathname 
+
   if (!result){
     
-     const res=await myRedirect("/login")
+     const res=await myRedirect(`/login?message=you must login first&&redirectto=${pathName}`)
      return res
 
   }

@@ -1,4 +1,4 @@
-import { createServer, Model } from "miragejs"
+import { createServer, Model, Response } from "miragejs"
 import ImageOne from "./images/download (5).jpg"
 import ImageTwo from "./images/download (6).jpg"
 import ImageThree from "./images/download (7).jpg"
@@ -49,18 +49,18 @@ createServer({
 
         server.create("van", {
 
-            id: 7, show: ImageSix, name: "zebra", email: "olumild998@gmail.com", password: "Trigonometry8#"
+            id: 7, show: ImageSix, name: "zebra", email: "olumild998@gmail.com", password: "geography"
         })
 
         server.create("van", {
 
-            id: 8, show: ImageSix, name: "Wasiu", email: "wasiu@gmail.com", password: "Trigonometry8#"
+            id: 8, show: ImageSix, name: "Wasiu", email: "wasiu@gmail.com", password: "geography"
         })
 
 
         server.create("van", {
 
-            id: 8, show: ImageSix, name: "toluwani", email: "toluwani@gmail.com", password: "toluwani"
+            id: 8, show: ImageSix, name: "toluwani", email: "toluwani@gmail.com", password: "geography"
         })
 
     }
@@ -100,14 +100,14 @@ createServer({
 
             if (!foundUser) {
 
-                return new Response(401, {}, { message: "User not found" })
+                return new Response(401, { "Content-Type": "application/json" }, { message: ["their was an error"] })
 
 
             }
 
 
 
-            return { "user": foundUser }
+            return { "message": "You ahve successfully signed in" }
 
 
 

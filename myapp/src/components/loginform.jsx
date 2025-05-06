@@ -1,75 +1,76 @@
-import React, {Suspense, useState} from 'react'
-import { useSearchParams, useNavigate, Form } from 'react-router-dom'
-import { loginUser } from '../api/api'
+import React from 'react'
+import {   Form, useLoaderData, useNavigation } from 'react-router-dom'
+import { loginUser, myRedirect } from '../api/api'
 
+
+function  mySleep(tm){
+
+    return new Promise(resolve=> setTimeout(resolve,tm) )
+
+}
 
 
 export async function action({request}){
   
-    console.log(request)
-    return null
+    const pathName=new URL(request.url).searchParams.get("redirectto") || "/host"
+
+  
+    const formData=await request.formData()
+
+    const email=formData.get("email")
+    
+    const password=formData.get("password")
+
+    const data=loginUser({email, password})   
+  
+    try {
+        
+       localStorage.setItem("loggedin", true)
+       
+        
+  
+        return await myRedirect(pathName)
+
+    
+    } catch (error) {
+        
+       console.log(error.message)
+        return error.message
+
+    }
+
+
+
+}
+
+
+
+export async function loader({request}){
+
+   const message=new URL(request.url).searchParams.get("message")    
+     
+   
+   return message
+
 }
 
 
 
 
 
+
 const Loginform= () => {
-
-
-
-
-
-
-
-   const [searchPaarams,setSerachParamss]=useSearchParams()
-
-   const message=searchPaarams.get("message")
    
-   
-
-    // const [inputText,setInputText]=useState({email:"", password:"" })
+    const message=useLoaderData()  
+    const navigation=useNavigation()
     
-    // const [status,setStatus]=useState("idle")
-   
-  //  const navigate=useNavigate()  
-  
-
-    // const handleForm=(e)=>{
-
-    //      e.preventDefault()
-    //      setStatus("submiting")        
-    //      loginUser(inputText).then(val=>{
-    //           console.log(val) 
-    //           navigate("/",  {replace:true} )
-    //      }).catch(err=>{
-    //         console.error(err.message)
-            
-    //      })
-    //      .finally(()=>{
-    //         setStatus("idle")  
-    //         setInputText({email:"", password:""})       
-    //      })
-
-      
-    // }
-   
-    // const handleCChange=(e)=>{
-
-    //     const name=e.target.name
-          
-    //    setInputText({...inputText,  [name]:e.target.value    })
-
-    // }
-     
-
-
+     console.log(navigation)
 
   return (
     <div> 
-           {message && <h4   style={{color:"red",  textAlign:"center"  }}  >You must login first</h4>} 
+          {message && <h3 style={{color:"red", textAlign:"center"  }}  >  {`${message}!! `} </h3>}
           <h1>Sign in to your account</h1>
-          <Form   method="post"  >
+          <Form   method="post"  replace   >
   
                     <div className='input-cont' >
                             <label htmlFor='email' class="label-1"    >Email:</label>
@@ -85,7 +86,11 @@ const Loginform= () => {
                           
                           {/* <input class="btn-inp"   type="submit" value="Login"   />  */}
                          
-                          <button      type="submit" class="btn-inp"  >Login </button>
+                          <button  disabled={navigation.state === "submitting"}  type="submit" class={navigation.state === "submitting"? "switch": "btn-inp"}  >
+                            
+                              {navigation.state === "submitting" ? "logging in": "login"  }
+                            
+                             </button>
  
 
                     </div>

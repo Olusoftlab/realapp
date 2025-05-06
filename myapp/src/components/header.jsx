@@ -30,10 +30,16 @@ const Header = () => {
                                 <NavLink to="/vans" className={({isActive})=>isActive? "get":undefined  }>
                                     Vans
                                 </NavLink>            
+ 
 
                                  <NavLink to="login" className={({isActive})=>isActive? "get":undefined  }>
                                     form
                                 </NavLink>   
+
+
+                                <NavLink to="logout" className={({isActive})=>isActive? "get":undefined  }>
+                                    logout
+                                </NavLink>
                             
                        </div> 
                                      

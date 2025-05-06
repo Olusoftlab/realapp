@@ -34,11 +34,11 @@ export async function loginUser(info){
     if (!res.ok){
 
           return {
-               message:data.message,
+
+               message:"their was an error",
                statusText:res.statusText,
                status:res.status
-          }
-
+          }  
 
     }
   
